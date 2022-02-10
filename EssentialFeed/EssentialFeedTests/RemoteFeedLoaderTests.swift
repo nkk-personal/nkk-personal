@@ -19,14 +19,14 @@ class RemoteFeedLoaderTests: XCTestCase {
     }
     
     private func expector(_ sut: RemoteFeedLoader, toCompleteWithError error: RemoteFeedLoader.Error, when action: ()-> Void, file: StaticString = #filePath, line: UInt = #line) {
-        var capturedErrors = [RemoteFeedLoader.Error]()
+        var capturedResults = [RemoteFeedLoader.Result]()
         sut.load { error in
-            capturedErrors.append(error)
+            capturedResults.append(error)
         }
         
        action()
         
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
     }
     
     func test_init_doesNotRequestDataFromURL() {
@@ -78,6 +78,7 @@ class RemoteFeedLoaderTests: XCTestCase {
             client.complete(withStatus: 200, data: invalidJSON)
         }
     }
+    
     
 }
 
