@@ -1,0 +1,17 @@
+.DS_Store
+xcuserdata
+xcshareddata/WorkspaceSettings.xcsettings
+*.xccheckout
+*.xcuserstate
+*.xcscmblueprint
+.idea/
+target/
+build/
+*.iml
+log4j-application.log
+OktaMobile/nap/
+**/*.tar.gz
+**/*.xctestrun
+**/*.app
+**/DerivedData
+**/Build
