@@ -91,33 +91,39 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_delivers200WithJSONList() {
         let (sut, client) = makeSUT()
-        let item1 = FeedItem(id: UUID(), description: nil, location: nil, imageURL: URL(string: "https:///a")!)
+        let item1 = makeItem(id: UUID(), imageURL: URL(string: "https:///a")!)
         
-        let item1JSON = [
-            "id": item1.id.uuidString,
-            "image": item1.imageURL.absoluteString
-		]
-        
-        let item2 = FeedItem(id: UUID(),
+        let item2 = makeItem(id: UUID(),
 							 description: "some description",
 							 location: "some location",
 							 imageURL: URL(string: "https:///b")!)
         
-        let item2JSON = [
-            "id": item2.id.uuidString,
-            "description": item2.description,
-            "location": item2.location,
-            "image": item2.imageURL.absoluteString
-		]
         
-		let itemsJSON = ["items": [item1JSON, item2JSON]]
+        let itemsJSON = ["items": [item1.json, item2.json]]
         
-        expector(sut, toCompleteWith: .sucess([item1, item2])) {
+        expector(sut, toCompleteWith: .sucess([item1.model, item2.model])) {
             let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
             client.complete(withStatus: 200, data: json)
         }
         
     }
+    
+    private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
+        let item = FeedItem(id: id, description: description, location: location, imageURL: imageURL)
+        let json = ["id": id.uuidString,
+                    "description": description,
+                    "location": location,
+                    "image": imageURL.absoluteString].reduce(into: [String: Any]()) { (acc, e) in
+            if let value = e.value {
+                acc[e.key] = value
+            }
+        }
+        return (item, json)
+    }
+    
+//    private func makeItemsJSON([[String:Any]]) -> Data {
+//
+//    }
     
 }
 
