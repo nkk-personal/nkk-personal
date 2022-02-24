@@ -57,13 +57,14 @@ class RemoteFeedLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { index, code in
             expector(sut, toCompleteWith: .failure(.invalidDataError)) {
-                client.complete(withStatus: code, at: index)
+                let json = makeItemsJSON([])
+                client.complete(withStatus: code, data: json, at: index)
             }
         }
         
     }
     
-    func test_load_deliversErrorOnClientError() {
+    func test_load_deliversErrorOnClientError() {  
         let (sut, client) = makeSUT()
         expector(sut, toCompleteWith: .failure(.connectivityError)) {
             let clientError = NSError(domain: "test", code: 0, userInfo: nil)
@@ -146,7 +147,7 @@ class HTTPClientSpy: HTTPClient {
         messages[index].completion(.failure(error))
     }
     
-    func complete(withStatus code: Int, data: Data = Data(), at index: Int = 0) {
+    func complete(withStatus code: Int, data: Data, at index: Int = 0) {
         let response = HTTPURLResponse(url: requestedURLs[index],
                                        statusCode: code,
                                        httpVersion: nil,
