@@ -74,8 +74,10 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_delivers200WithInvalidJSONError() {
         let (sut, client) = makeSUT()
-        let invalidJSON = Data("IncorrectJSON".utf8)
+        
         expector(sut, toCompleteWith: .failure(.invalidDataError)) {
+//            let invalidJSON = Data("IncorrectJSON".utf8)
+            let invalidJSON = makeItemsJSON([["sfsf":"sfsf"]])
             client.complete(withStatus: 200, data: invalidJSON)
         }
     }
@@ -83,9 +85,9 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_delivers200WithEmptyJSONList() {
         let (sut, client) = makeSUT()
-        let emptyJSON = Data("{\"items\": []}".utf8)
         
         expector(sut, toCompleteWith: .sucess([])) {
+            let emptyJSON = makeItemsJSON([])
             client.complete(withStatus: 200, data: emptyJSON)
         }
     }
