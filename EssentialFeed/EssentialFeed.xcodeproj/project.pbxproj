@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB17B9D627CA61F9005E1A16 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17B9D527CA61F9005E1A16 /* HTTPClient.swift */; };
+		CB17B9D827CA6375005E1A16 /* FeedItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17B9D727CA6375005E1A16 /* FeedItemMapper.swift */; };
 		CB68A946277BF034005A8A29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68A945277BF034005A8A29 /* AppDelegate.swift */; };
 		CB68A948277BF034005A8A29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68A947277BF034005A8A29 /* SceneDelegate.swift */; };
 		CB68A94A277BF034005A8A29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68A949277BF034005A8A29 /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		CB17B9D527CA61F9005E1A16 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		CB17B9D727CA6375005E1A16 /* FeedItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemMapper.swift; sourceTree = "<group>"; };
 		CB68A942277BF034005A8A29 /* EssentialFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB68A945277BF034005A8A29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB68A947277BF034005A8A29 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				CB68A976277BF1D9005A8A29 /* FeedItem.swift */,
 				CB68A978277BF1EA005A8A29 /* FeedLoader.swift */,
+				CB17B9D727CA6375005E1A16 /* FeedItemMapper.swift */,
 			);
 			path = "Feed Feature";
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				CB68A979277BF1EA005A8A29 /* FeedLoader.swift in Sources */,
 				CBE22DC7279147350015E602 /* RemoteFeedLoader.swift in Sources */,
 				CB68A948277BF034005A8A29 /* SceneDelegate.swift in Sources */,
+				CB17B9D827CA6375005E1A16 /* FeedItemMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
