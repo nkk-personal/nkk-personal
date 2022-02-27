@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal class FeedItemMapper {
+internal final class FeedItemMapper {
     
     //can hide both the structs inside FeedItemMapper so no one can access or just leave it outside or even you can put it inside the static func (doesnt look good though) https://academy.essentialdeveloper.com/courses/447455/lectures/8732933 around 35.32
     private struct Root: Decodable {
