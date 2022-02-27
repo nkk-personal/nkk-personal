@@ -12,6 +12,9 @@ internal final class FeedItemMapper {
     //can hide both the structs inside FeedItemMapper so no one can access or just leave it outside or even you can put it inside the static func (doesnt look good though) https://academy.essentialdeveloper.com/courses/447455/lectures/8732933 around 35.32
     private struct Root: Decodable {
         let items: [Item]
+        var feed: [FeedItem] {
+            return items.map { $0.item }
+        }
     }
 
     private struct Item: Decodable {
@@ -26,12 +29,11 @@ internal final class FeedItemMapper {
     }
     
     private static var OK_200: Int { return 200 }
-    
-    internal static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
-        guard response.statusCode == OK_200 else {
-            throw RemoteFeedLoader.Error.invalidDataError
+
+    internal static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteFeedLoader.Result {
+        guard response.statusCode == OK_200, let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            return .failure(.invalidDataError)
         }
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        return root.items.map({ $0.item })
+        return .sucess(root.feed)
     }
 }
