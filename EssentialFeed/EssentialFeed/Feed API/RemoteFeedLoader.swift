@@ -16,7 +16,7 @@ public final class RemoteFeedLoader: FeedLoader {
         case connectivityError
         case invalidDataError
     }
-    public typealias Result = LoadFeedResult<Error>
+    public typealias Result = LoadFeedResult
     
     public init(url: URL, client: HTTPClient) {
         self.url = url

@@ -33,7 +33,7 @@ class RemoteFeedLoaderTests: XCTestCase {
             switch(receivedResult, expectedResult) {
             case let (.success(receivedItems), .success(expectedItems)):
                 XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
-            case let (.failure(receivedError), .failure(expectedError)):
+            case let (.failure(receivedError as RemoteFeedLoader.Error), .failure(expectedError as RemoteFeedLoader.Error)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             default:
                 XCTFail("Expected Result \(expectedResult) and got \(receivedResult) instead", file: file, line: line)
@@ -73,7 +73,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { index, code in
-            expector(sut, toCompleteWith: .failure(.invalidDataError)) {
+            expector(sut, toCompleteWith: .failure(RemoteFeedLoader.Error.invalidDataError)) {
                 let json = makeItemsJSON([])
                 client.complete(withStatus: code, data: json, at: index)
             }
@@ -83,7 +83,7 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
-        expector(sut, toCompleteWith: .failure(.connectivityError)) {
+        expector(sut, toCompleteWith: .failure(RemoteFeedLoader.Error.connectivityError)) {
             let clientError = NSError(domain: "test", code: 0, userInfo: nil)
             client.completeWithError(error: clientError)
         }
@@ -92,7 +92,7 @@ class RemoteFeedLoaderTests: XCTestCase {
     func test_load_delivers200WithInvalidJSONError() {
         let (sut, client) = makeSUT()
         
-        expector(sut, toCompleteWith: .failure(.invalidDataError)) {
+        expector(sut, toCompleteWith: .failure(RemoteFeedLoader.Error.invalidDataError)) {
 //            let invalidJSON = Data("IncorrectJSON".utf8)
             let invalidJSON = makeItemsJSON([["sfsf":"sfsf"]])
             client.complete(withStatus: 200, data: invalidJSON)
