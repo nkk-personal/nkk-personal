@@ -28,41 +28,17 @@ class URLSessionHTTPClient: HTTPClient {
 
 class URLSessionHTTPClientTests: XCTestCase {
     
-//    func test_getFromURL_createsDataTaskWithURL() {
-//        //setting/building
-//        let url = URL(string: "https://any.com")!
-//        let session = URLSessionSpy()
-//
-//        let sut = URLSessionHTTPClient(session: session )
-//
-//        //When
-//        sut.get(from: url) { result in
-//
-//        }
-//
-//        //Validation/Assertion
-//        XCTAssertEqual(session.receivedURLs, [url])
-//    }
-//
-//    func test_getFromURL_resumeDataTaskWithURL() {
-//        //setting/building
-//        let url = URL(string: "https://any.com")!
-//        let session = HTTPSessionSpy()
-//        let task = URLSessionDataTaskSpy()
-//        session.stub(url: url, task: task)
-//        let sut = URLSessionHTTPClient(session: session )
-//
-//        //When
-//        sut.get(from: url) { result in
-//
-//        }
-//
-//        //Validation/Assertion
-//        XCTAssertEqual(task.resumeCallCount, 1)
-//    }
-//
-    func test_getFromURL_performGETRequestWithURL() {
+    override func setUp() {
+        super.setUp()
         URLProtocolsStub.startInterceptingRequests()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        URLProtocolsStub.stopInterceptingRequests()
+    }
+    
+    func test_getFromURL_performGETRequestWithURL() {
         let url = URL(string: "https://any.com")!
         
         let expectation = expectation(description: "Wait until the request completes")
@@ -77,16 +53,10 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 1.0)
-        URLProtocolsStub.stopInterceptingRequests()
     }
     
     func test_getFromURL_failsOnRequestError() {
-        URLProtocolsStub.startInterceptingRequests()
-//        URLProtocol.registerClass(URLProtocolsStub.self)
         let url = URL(string: "https://any.com")!
-//        let session = HTTP()
-//        let task = URLSessionDataTaskSpy()
-//        session.stub(url: url, task: task)
         let error = NSError(domain: "Some error", code: 1)
         URLProtocolsStub.stub(data: nil, response: nil, error: error )
         let sut = URLSessionHTTPClient()
@@ -106,8 +76,6 @@ class URLSessionHTTPClientTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1.0)
-//        URLProtocol.unregisterClass(URLProtocolsStub.self)
-        URLProtocolsStub.stopInterceptingRequests()
     }
 }
 
