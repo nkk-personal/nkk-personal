@@ -61,6 +61,24 @@ class URLSessionHTTPClientTests: XCTestCase {
 //        XCTAssertEqual(task.resumeCallCount, 1)
 //    }
 //
+    func test_getFromURL_performGETRequestWithURL() {
+        URLProtocolsStub.startInterceptingRequests()
+        let url = URL(string: "https://any.com")!
+        
+        let expectation = expectation(description: "Wait until the request completes")
+        URLProtocolsStub.observeRequest{ request in
+            XCTAssertEqual(request.url, url)
+            XCTAssertEqual(request.httpMethod, "GET")
+            expectation.fulfill()
+        }
+        
+        URLSessionHTTPClient().get(from: url) { _ in
+            
+        }
+        
+        wait(for: [expectation], timeout: 1.0)
+        URLProtocolsStub.stopInterceptingRequests()
+    }
     
     func test_getFromURL_failsOnRequestError() {
         URLProtocolsStub.startInterceptingRequests()
@@ -98,6 +116,7 @@ class URLProtocolsStub: URLProtocol {
 //    private var stubs = [URL: URLSessionDataTask]()
 //    private static var stubs = [URL: Stub]()
     private static var stub: Stub?
+    private static var requestObserver:((URLRequest) -> Void)?
     
     private struct Stub {
 //        let task: HTTPSessionTask
@@ -108,6 +127,10 @@ class URLProtocolsStub: URLProtocol {
     
     static func stub(data: Data?, response: URLResponse?, error: Error? = nil) {
         stub = Stub(data: data, response: response, error: error)
+    }
+    
+    static func observeRequest(observer: @escaping (URLRequest) -> Void) {
+        requestObserver = observer
     }
     
 //    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> HTTPSessionTask {
@@ -129,6 +152,7 @@ class URLProtocolsStub: URLProtocol {
     static func stopInterceptingRequests() {
         URLProtocol.unregisterClass(URLProtocolsStub.self)
         stub = nil
+        requestObserver = nil
     }
     
     override class func canInit(with request: URLRequest) -> Bool {
@@ -136,6 +160,7 @@ class URLProtocolsStub: URLProtocol {
 //            return false
 //        }
 //        return URLProtocolsStub.stubs[url] != nil
+        requestObserver?(request)
         return true
     }
     
