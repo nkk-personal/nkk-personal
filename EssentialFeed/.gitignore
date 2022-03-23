@@ -1,0 +1,15 @@
+xcuserdata/
+.DS_Store
+Pods
+*.xcworkspace/xcuserdata/
+*.lproj/
+build/
+**/fastlane/README.md
+**/fastlane/test_output/
+**/fastlane/lint/
+**/report.xml
+**/.idea/
+**/test-result.xml
+download/
+DerivedData/
+**/*.tar.gz
