@@ -39,7 +39,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     }
     
     func test_getFromURL_performGETRequestWithURL() {
-//        let url = URL(string: "https://any.com")!
+        let url = anyUrl()
         
         let expectation = expectation(description: "Wait until the request completes")
         URLProtocolsStub.observeRequest{ request in
@@ -48,7 +48,7 @@ class URLSessionHTTPClientTests: XCTestCase {
             expectation.fulfill()
         }
         
-        makeSUT().get(from: anyUrl()) { _ in
+        makeSUT().get(from: url) { _ in
             
         }
         
