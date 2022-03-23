@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB11561527E2C869007481AD /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB11561427E2C869007481AD /* XCTestCase+MemoryLeakTracking.swift */; };
 		CB17B9D627CA61F9005E1A16 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17B9D527CA61F9005E1A16 /* HTTPClient.swift */; };
 		CB17B9D827CA6375005E1A16 /* FeedItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17B9D727CA6375005E1A16 /* FeedItemMapper.swift */; };
 		CB68A946277BF034005A8A29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68A945277BF034005A8A29 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB11561427E2C869007481AD /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		CB17B9D527CA61F9005E1A16 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		CB17B9D727CA6375005E1A16 /* FeedItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemMapper.swift; sourceTree = "<group>"; };
 		CB68A942277BF034005A8A29 /* EssentialFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,9 +92,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB11561327E2C822007481AD /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CB11561427E2C869007481AD /* XCTestCase+MemoryLeakTracking.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
 		CB17B9D927CB399C005E1A16 /* Feed API */ = {
 			isa = PBXGroup;
 			children = (
+				CB11561327E2C822007481AD /* helpers */,
 				CB68A97A277C2B9F005A8A29 /* RemoteFeedLoaderTests.swift */,
 				CBA93FD227D2E2840064ECF7 /* URLSessionHTTPClientTests.swift */,
 			);
@@ -319,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB68A97B277C2B9F005A8A29 /* RemoteFeedLoaderTests.swift in Sources */,
+				CB11561527E2C869007481AD /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				CBA93FD327D2E2840064ECF7 /* URLSessionHTTPClientTests.swift in Sources */,
 				CB68A95D277BF035005A8A29 /* EssentialFeedTests.swift in Sources */,
 			);
