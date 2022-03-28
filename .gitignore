@@ -1,0 +1,16 @@
+.DS_Store
+xcuserdata
+xcshareddata/WorkspaceSettings.xcsettings
+*.xccheckout
+*.xcuserstate
+*.xcscmblueprint
+.idea/
+target/
+build/
+*.iml
+log4j-application.log
+**/*.tar.gz
+**/*.xctestrun
+**/*.app
+**/DerivedData
+**/Build
