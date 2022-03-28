@@ -41,17 +41,21 @@ class URLSessionHTTPClientTests: XCTestCase {
         super.tearDown()
         URLProtocolsStub.stopInterceptingRequests()
     }
-    
+    //Given / When / Then
     func test_getFromURL_performGETRequestWithURL() {
+        
+//        Given
         let url = anyUrl()
         
         let expectation = expectation(description: "Wait until the request completes")
         URLProtocolsStub.observeRequest{ request in
+//            Then
             XCTAssertEqual(request.url, url)
             XCTAssertEqual(request.httpMethod, "GET")
             expectation.fulfill()
         }
         
+//        When
         makeSUT().get(from: url) { _ in
             
         }
