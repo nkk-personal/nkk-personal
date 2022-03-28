@@ -9,7 +9,6 @@ target/
 build/
 *.iml
 log4j-application.log
-OktaMobile/nap/
 **/*.tar.gz
 **/*.xctestrun
 **/*.app
